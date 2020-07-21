@@ -2,12 +2,9 @@
 
 @section('content')
 
-@if (Auth::check())
-  {{ Auth::user()->name }}
-@else
   <div class="site-wrap">
    
-    <div class="slide-one-item home-slider owl-carousel">
+    <div class="slide-one-item owl-carousel">
       
       <div class="site-blocks-cover inner-page overlay" style="background-image: url(images/_117023-909.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
         <div class="container">
@@ -50,68 +47,49 @@
           </div>
         </div>
         <div class="row border-responsive">
-          <div class="col-md-6 col-lg-3 mb-4 mb-lg-0 border-right" data-aos="fade-up" data-aos-delay="">
+          <div class="col-12 mb-4 mb-lg-0 text-center" data-aos="fade-up" data-aos-delay="">
             <div class="text-center">
               <span class="flaticon-money-bag-with-dollar-symbol display-4 d-block mb-3 text-primary"></span>
               <h3 class="text-uppercase h4 mb-3">Increase Revenue</h3>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque, nobis?</p>
             </div>
           </div>
-          <div class="col-md-6 col-lg-3 mb-4 mb-lg-0 border-right" data-aos="fade-up" data-aos-delay="100">
-            <div class="text-center">
-              <span class="flaticon-bar-chart display-4 d-block mb-3 text-primary"></span>
-              <h3 class="text-uppercase h4 mb-3">Analytics</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque, nobis?</p>
+          
+          <div class="col-12" style="justify-content: space-around;">
+                {!! link_to_route('posts.create', '投稿する', [], ['class' => 'btn btn-outline-success btn-lg offset-md-1 col-lg-4']) !!}
+                {!! link_to_route('posts.index', '投稿一覧', [], ['class' => 'btn btn-outline-success btn-lg offset-md-2 col-lg-4']) !!}
             </div>
-          </div>
-          <div class="col-md-6 col-lg-3 mb-4 mb-lg-0 border-right" data-aos="fade-up" data-aos-delay="200">
-            <div class="text-center">
-              <span class="flaticon-medal display-4 d-block mb-3 text-primary"></span>
-              <h3 class="text-uppercase h4 mb-3">3 Years Experience</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque, nobis?</p>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="300">
-            <div class="text-center">
-              <span class="flaticon-box display-4 d-block mb-3 text-primary"></span>
-              <h3 class="text-uppercase h4 mb-3">Free Package</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque, nobis?</p>
-            </div>
-          </div>
-          <ul>
-            <li>{!! link_to_route('travenirs.create', '投稿する', [], ['class' => 'btn btn-primary']) !!}</li>
-            <li>{!! link_to_route('travenirs.create', '投稿一覧', [], ['class' => 'btn btn-primary']) !!}</li>
-          </ul>
         </div>
       </div>
     </div>
-  
       
     <div class="site-half">
-      <div class="img-bg-1" style="background-image: url('images/img_4.jpg');" data-aos="fade"></div>
+      <div class="img-bg-1" style="background-image: url('images/_82574-6903.jpg');" data-aos="fade"></div>
       <div class="container">
         <div class="row no-gutters align-items-stretch">
           <div class="col-lg-5 ml-lg-auto py-5">
             <span class="caption d-block mb-2 font-secondary font-weight-bold">Outstanding Services</span>
-            <h2 class="site-section-heading text-uppercase font-secondary mb-5">Clean Design</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus aliquid eius facilis voluptatem eligendi magnam accusamus vel commodi asperiores sint rem reprehenderit nobis nesciunt veniam qui fugit doloremque numquam quod.</p>
-  
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur tempora distinctio ipsam nesciunt recusandae repellendus asperiores amet.</p>  
+            <h2 class="site-section-heading text-uppercase font-secondary mb-5">{!! link_to_route('posts.create', '投稿する', [], ['class' => 'btn btn-primary']) !!}</h2>
+            <p>みんなの旅のお土産話を聞かせて！</p>
+            <ul>
+                <li>{!! link_to_route('posts.index', '投稿一覧', [], ['class' => 'btn btn-primary']) !!}</li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
   
     <div class="site-half block">
-      <div class="img-bg-1 right" style="background-image: url('images/img_5.jpg');" data-aos="fade"></div>
+      <div class="img-bg-1 right" style="background-image: url('images/_23-2148589669.jpg');" data-aos="fade"></div>
       <div class="container">
         <div class="row no-gutters align-items-stretch">
           <div class="col-lg-5 mr-lg-auto py-5">
             <span class="caption d-block mb-2 font-secondary font-weight-bold">Easy To Use Templates</span>
-            <h2 class="site-section-heading text-uppercase font-secondary mb-5">Free HTML5 Templates</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus aliquid eius facilis voluptatem eligendi magnam accusamus vel commodi asperiores sint rem reprehenderit nobis nesciunt veniam qui fugit doloremque numquam quod.</p>
-  
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur tempora distinctio ipsam nesciunt recusandae repellendus asperiores amet.</p>  
+            <h2 class="site-section-heading text-uppercase font-secondary mb-5">{!! link_to_route('questions.create', '質問する', [], ['class' => 'btn btn-primary']) !!}</h2>
+            <p>初めての旅の持ち物など、たくさん質問しよう！</p>
+            <ul>
+                <li>{!! link_to_route('questions.index', '質問一覧', [], ['class' => 'btn btn-primary']) !!}</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -130,8 +108,6 @@
   
     <footer class="site-footer bg-dark">
       <div class="container">
-        
-  
         <div class="row">
           <div class="col-md-4 mb-4 mb-md-0">
             <h3 class="footer-heading mb-4 text-white">About</h3>
@@ -160,7 +136,6 @@
                   </ul>
               </div>
             </div>
-  
             <div class="row mb-5">
               <div class="col-md-12">
               <h3 class="footer-heading mb-4 text-white">Stay up to date</h3>
@@ -171,10 +146,7 @@
             </div>
             </div>
           </div>
-  
-          
           <div class="col-md-2">
-            
             <div class="row">
             <div class="col-md-12"><h3 class="footer-heading mb-4 text-white">Social Icons</h3></div>
               <div class="col-md-12">
@@ -183,7 +155,6 @@
                   <a href="#" class="p-2"><span class="icon-twitter"></span></a>
                   <a href="#" class="p-2"><span class="icon-instagram"></span></a>
                   <a href="#" class="p-2"><span class="icon-vimeo"></span></a>
-  
                 </p>
               </div>
           </div>
@@ -193,17 +164,14 @@
           <div class="col-md-12">
             <p>
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
+            <!--Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>-->
+            &copy; 2020 Travenirs
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </p>
-  
-            
           </div>
-          
         </div>
       </div>
     </footer>
   </div>
-@endif
 
 @endsection

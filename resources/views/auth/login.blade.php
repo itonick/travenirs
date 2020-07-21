@@ -10,8 +10,8 @@
 
             {!! Form::open(['route' => 'login.post']) !!}
                 <div class="form-group">
-                    {!! Form::label('name', 'ユーザーネーム') !!}
-                    {!! Form::text('name', old('name'), ['class' => 'form-control']) !!}
+                    {!! Form::label('email', 'メールアドレス') !!}
+                    {!! Form::email('email', old('email'), ['class' => 'form-control']) !!}
                 </div>
 
                 <div class="form-group">
@@ -19,7 +19,7 @@
                     {!! Form::password('password', ['class' => 'form-control']) !!}
                 </div>
 
-                {!! Form::submit('Log in', ['class' => 'btn btn-primary btn-block']) !!}
+                {!! Form::submit('Login', ['class' => 'btn btn-primary btn-block']) !!}
             {!! Form::close() !!}
 
             <p class="mt-2">サインアップがまだの方は<br> {!! link_to_route('signup.get', 'こちらから！') !!}</p>
