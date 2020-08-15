@@ -11,6 +11,11 @@
 
             {!! Form::open(['route' => 'signup.post']) !!}
                 <div class="form-group">
+                    {!! Form::label('image', 'プロフィール写真') !!}
+                    {!! Form::file('image', ['class' => 'form-control']) !!}
+                </div>
+                
+                <div class="form-group">
                     {!! Form::label('name', 'ユーザーネーム') !!}
                     {!! Form::text('name', old('name'), ['class' => 'form-control']) !!}
                 </div>

@@ -3,25 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\User;
 use App\Post;
+use Storage;
 
 class PostsController extends Controller
 {
     public function index()
     {
-        $posts = Post::all();
 
-        // メッセージ一覧ビューでそれを表示
-        return view('posts.index', [
-            'posts' => $posts,
-        ]);
+        $posts = new Post;
+        $data['posts'] = Post::orderBy('created_at', 'desc')
+        ->simplePaginate(1);
+        return view('posts.index', $data);
     }
 
     public function create()
     {
         $post = new Post;
-        
+
         return view('posts.create', [
             'post' => $post,
         ]);
@@ -29,24 +29,52 @@ class PostsController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'content' => 'required|max:255',
-        ]);
+        // $request->validate([
+        //     'title' => 'required|max:20',
+        //     'content' => 'required|max:255',
+        //     // 'image' => 'required|file|image,
+        // ]);
         
-        $request->user()->posts()->create([
-            'title' => $request->title,
-            'tag' => $request->tag,
-            'content' => $request->content,
-        ]);
-        
-        $disk = Storage::disk('s3');
-        $images = $request->file('item_url');
-        foreach ( $images as $image) {
-            $path = $disk->putFile('itemImages', $image, 'public');
-            $url[] = $disk->url($path);
-        }
+        // $post = new Post();
+        // $image = $request->file('image');
+        // $path = Storage::disk('s3')->put('travenirs', $image, 'public');
+        // $post->image = Storage::url($path);
 
-        return view('posts.index');
+        // $request->user()->posts()->create([
+        //     'user_id' => $request->user_id,
+        //     'image' => $request->image,
+        //     'title' => $request->title,
+        //     'content' => $request->content,
+        //     'tag' => $request->tag,
+        // ]);
+        
+        // return redirect('posts.index');
+        
+        $this->validate($request, [
+           'image' => 'image|max:1999',
+           'title' => 'required',
+           'content' => 'required|max:255',
+        ]);
+        
+        if($request->hasFile('image')) {
+            $filenameWithExt = $request->file('image')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+            $path = $request->file('image')->storeAs('public/images', $fileNameToStore);
+        } else {
+            $fileNameToStore = 'noimage.jpg';
+        }
+        
+        $post = new Post;
+        $post->user_id = auth()->user()->id;
+        $post->image = $fileNameToStore;
+        $post->title = $request->input('title');
+        $post->content = $request->input('content');
+        $post->tag = $request->input('tag');
+        $post->save();
+
+        return redirect('posts.index');
     }
 
     public function show($id)
@@ -92,4 +120,16 @@ class PostsController extends Controller
 
         return redirect('/');
     }
+    
+    public function search(Request $request)
+    {
+    	$posts = Post::orderBy('created_at', 'desc')->where('tag', 'like', "%{$request->search}%")->paginate(2);
+    	$search_result = '「' . $request->search . '」' . 'の投稿：' . $posts->total() . '件';
+    
+    	return view('posts.index', [
+    	    'posts' => $posts,
+    	    'search_result' => $search_result,
+    	]);
+    }
+
 }

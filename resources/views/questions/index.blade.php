@@ -20,6 +20,7 @@
                     <td>{{ $question->id }}</td>
                     <td>{{ $question->title }}</td>
                     <td>{{ $question->name }}</td>
+                    <small>Written on {{ $question->created_at }}</small>
                     <td>{{ $question->content }}</td>
                 </tr>
                 @endforeach

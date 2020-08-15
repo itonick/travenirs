@@ -10,29 +10,14 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
-        'name', 'email', 'password',
+        'image', 'name', 'email', 'password',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
@@ -141,5 +126,29 @@ class User extends Authenticatable
     public function is_favorite($postId)
     {
         return $this->favorites()->where('post_id', $postId)->exists();
+    }
+    
+    public function updateProfile(Array $params)
+    {
+        if (isset($params['image'])) {
+            $file_name = $params['image']->store('public/image/');
+
+            $this::where('id', $this->id)
+                ->update([
+                    'password'   => $params['password'],
+                    'name'          => $params['name'],
+                    'image' => basename($file_name),
+                    'email'         => $params['email'],
+                ]);
+        } else {
+            $this::where('id', $this->id)
+                ->update([
+                    'password'   => $params['password'],
+                    'name'          => $params['name'],
+                    'email'         => $params['email'],
+                ]); 
+        }
+
+        return;
     }
 }

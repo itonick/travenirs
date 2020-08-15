@@ -45,6 +45,12 @@ class UsersController extends Controller
     
     public function update(Request $request, $id)
     {
+        $request->validate([
+           'name' => 'required|max:14',
+           'email' => 'required|max:255',
+           'password' => 'required|min:8|confirmed',
+        ]);
+        
         $user = User::findOrFail($id);
         $user->image = $request->image;
         $user->name = $request->name;
@@ -53,7 +59,9 @@ class UsersController extends Controller
         $user->save();
 
         // トップページへリダイレクトさせる
-        return redirect('/');
+        return view('users.index', [
+            'user' => $user,
+        ]);
     }
     
     //ユーザのフォロー一覧ページを表示するアクション。

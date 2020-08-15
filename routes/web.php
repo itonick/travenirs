@@ -18,10 +18,10 @@ Route::get('users.index', 'UsersController@index');
 Route::resource('users', 'UsersController');
 
 Route::get('posts.index', 'PostsController@index');
-Route::resource('posts', 'PostsController');
+//@の後は、function名
+Route::get('search', 'PostsController@search')->name('posts.search');
 
 Route::get('questions.index', 'QuestionsController@index');
-Route::resource('questions', 'QuestionsController');
 
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
@@ -40,13 +40,13 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('posts', 'UsersController@posts')->name('users.posts');
         Route::get('questions', 'UsersController@questions')->name('users.questions');
     });
-    Route::resource('users', 'UsersController', ['only' => ['index', 'show', 'create', 'edit', 'update']]);
+    Route::resource('users', 'UsersController');
     
     Route::group(['prefix' => 'posts/{id}'], function () {
         Route::post('favorite', 'FavoritesController@store')->name('favorites.favorite');
         Route::delete('unfavorite', 'FavoritesController@destroy')->name('favorites.unfavorite');
     });
     
-    Route::resource('posts', 'PostsController', ['only' => ['store', 'destroy', 'edit', 'update', 'show', 'index', 'create']]);
-    Route::resource('questions', 'QuestionsController', ['only' => ['store', 'destroy', 'edit', 'update', 'show', 'index', 'create']]);
+    Route::resource('posts', 'PostsController');
+    Route::resource('questions', 'QuestionsController');
 });

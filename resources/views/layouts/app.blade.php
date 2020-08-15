@@ -4,6 +4,7 @@
         <title>Travenirs</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         
         <link href="https://fonts.googleapis.com/css?family=Oswald:400,700|Work+Sans:300,400,700" rel="stylesheet">
         <link rel="stylesheet" href="fonts/icomoon/style.css">
@@ -17,10 +18,16 @@
         <link rel="stylesheet" href="/css/animate.css">    
         
         <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
-        
         <link rel="stylesheet" href="/css/aos.css">
-        
         <link rel="stylesheet" href="/css/style.css">
+        <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css">
+        <script src="{{ asset('js/jquery.min.js') }}"></script>
+        <script src="{{ asset('js/infinite-scroll.pkgd.min.js') }}"></script>
+        <script src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.min.js"></script>
+
     </head>
     <body>
         @include('commons.navbar')
@@ -37,11 +44,14 @@
         <script src="js/bootstrap.min.js"></script>
         <script src="js/owl.carousel.min.js"></script>
         <script src="js/jquery.stellar.min.js"></script>
+        <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"></script>
         
         <script src="js/jquery.waypoints.min.js"></script>
         <script src="js/jquery.animateNumber.min.js"></script>
         <script src="js/aos.js"></script>
-        
         <script src="js/main.js"></script>
+        
+        <script src="{{mix('js/app.js')}}"></script>
+        <script src="https://unpkg.com/vue-infinite-loading@^2/dist/vue-infinite-loading.js"></script>
     </body>
 </html>

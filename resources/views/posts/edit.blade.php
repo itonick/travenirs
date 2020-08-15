@@ -17,17 +17,17 @@
                 
                 <div class="form-group">
                     {!! Form::label('title', 'タイトル:') !!}
-                    {!! Form::text('title', null, ['class' => 'form-control']) !!}
+                    {!! Form::text('title', $post->title, ['class' => 'form-control']) !!}
                 </div>
                 
                 <div class="form-group">
                     {!! Form::label('content', '内容:') !!}
-                    {!! Form::text('content', null, ['class' => 'form-control']) !!}
+                    {!! Form::text('content', $post->content, ['class' => 'form-control']) !!}
                 </div>
                 
                 <div class="form-group">
                     {!! Form::label('tag', 'タグ') !!}
-                    {!! Form::text('tag', old('tag'), ['class' => 'form-control']) !!}
+                    {!! Form::text('tag', $post->tag, ['class' => 'form-control']) !!}
                 </div>
 
                 {!! Form::submit('編集', ['class' => 'btn btn-primary']) !!}
