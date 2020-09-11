@@ -50,8 +50,9 @@
         <script src="js/jquery.animateNumber.min.js"></script>
         <script src="js/aos.js"></script>
         <script src="js/main.js"></script>
-        
+
         <script src="{{mix('js/app.js')}}"></script>
         <script src="https://unpkg.com/vue-infinite-loading@^2/dist/vue-infinite-loading.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     </body>
 </html>

@@ -21,16 +21,16 @@
                 <div class="form-group">
                     {!! Form::label('category', 'カテゴリー:') !!}
                     <div class="form-check form-check-inline">
-                        {{ Form::radio('category', 'option1', true, ['id' => 'radio-one', 'class' => 'form-check-input']) }}
+                        {{ Form::radio('category', '観光', true, ['id' => 'radio-one', 'class' => 'form-check-input']) }}
                         {{ Form::label('radio-one', '観光', ['class' => 'form-check-label']) }}
                     </div>
                     <div class="form-check form-check-inline">
-                        {{ Form::radio('category', 'option2', false, ['id' => 'radio-two', 'class' => 'form-check-input']) }}
+                        {{ Form::radio('category', '食事', false, ['id' => 'radio-two', 'class' => 'form-check-input']) }}
                         {{ Form::label('radio-two', '食事', ['class' => 'form-check-label']) }}
                     </div>
                     <div class="form-check form-check-inline">
-                        {{ Form::radio('category', 'option3', false, ['id' => 'radio-two', 'class' => 'form-check-input']) }}
-                        {{ Form::label('radio-two', 'その他', ['class' => 'form-check-label']) }}
+                        {{ Form::radio('category', 'その他', false, ['id' => 'radio-three', 'class' => 'form-check-input']) }}
+                        {{ Form::label('radio-three', 'その他', ['class' => 'form-check-label']) }}
                     </div>
                 </div>
     

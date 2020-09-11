@@ -11,10 +11,10 @@ class PostsController extends Controller
 {
     public function index()
     {
-
         $posts = new Post;
         $data['posts'] = Post::orderBy('created_at', 'desc')
         ->simplePaginate(1);
+        
         return view('posts.index', $data);
     }
 
@@ -118,7 +118,7 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
         $post->delete();
 
-        return redirect('/');
+        return back();
     }
     
     public function search(Request $request)

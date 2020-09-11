@@ -5,13 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Travenir;
+use App\Post;
+use App\User;
 
 class TravenirsController extends Controller
 {
 
     public function index()
     {
-        return view('travenirs.index');
+        $posts = Post::all()->random(1)->all();
+        $user = User::all();
+
+        return view('travenirs.index', [
+            'posts' => $posts,
+        ]);
     }
 
     public function create()

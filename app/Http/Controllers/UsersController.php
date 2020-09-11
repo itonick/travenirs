@@ -27,7 +27,7 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
 
         $posts = $user->posts()->orderBy('created_at', 'desc')->paginate(10);
-
+        
         return view('users.show', [
             'user' => $user,
             'posts' => $posts,
@@ -67,16 +67,12 @@ class UsersController extends Controller
     //ユーザのフォロー一覧ページを表示するアクション。
     public function followings($id)
     {
-        // idの値でユーザを検索して取得
         $user = User::findOrFail($id);
 
-        // 関係するモデルの件数をロード
         $user->loadRelationshipCounts();
 
-        // ユーザのフォロー一覧を取得
         $followings = $user->followings()->paginate(10);
 
-        // フォロー一覧ビューでそれらを表示
         return view('users.followings', [
             'user' => $user,
             'users' => $followings,
@@ -86,16 +82,12 @@ class UsersController extends Controller
     //ユーザのフォロワー一覧ページを表示するアクション。
     public function followers($id)
     {
-        // idの値でユーザを検索して取得
         $user = User::findOrFail($id);
 
-        // 関係するモデルの件数をロード
         $user->loadRelationshipCounts();
 
-        // ユーザのフォロワー一覧を取得
         $followers = $user->followers()->paginate(10);
 
-        // フォロワー一覧ビューでそれらを表示
         return view('users.followers', [
             'user' => $user,
             'users' => $followers,
@@ -118,7 +110,7 @@ class UsersController extends Controller
     {
         $user = user::findOrFail($id);
         $user->loadRelationshipCounts();
-        $posts = $user->posts()->paginate(10);
+        $posts = $user->posts()->paginate(9);
         
         return view('users.posts', [
             'user' => $user,
@@ -128,6 +120,13 @@ class UsersController extends Controller
 
     public function questions($id)
     {
-        return view('users.questions');
+        $user = User::findOrFail($id);
+        $user->loadRelationshipCounts();
+        $questions = $user->questions()->paginate(10);
+        
+        return view('users.questions', [
+            'user' => $user,
+            'questions' => $questions,
+        ]);
     }
 }

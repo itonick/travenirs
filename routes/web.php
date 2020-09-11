@@ -16,12 +16,17 @@ Route::resource('travenirs', 'TravenirsController');
 
 Route::get('users.index', 'UsersController@index');
 Route::resource('users', 'UsersController');
+Route::get('users/show/{id}', 'UsersController@show')->name('users.show');
 
 Route::get('posts.index', 'PostsController@index');
-//@の後は、function名
-Route::get('search', 'PostsController@search')->name('posts.search');
+Route::get('posts/search', 'PostsController@search')->name('posts.search');
 
 Route::get('questions.index', 'QuestionsController@index');
+Route::get('show', 'QuestionsController@show')->name('questions.show');
+Route::get('questions/search', 'QuestionsController@search')->name('questions.search');
+
+Route::post('confirm', "AnswersController@confirm")->name("answers.confirm");
+Route::post('complete', "AnswersController@complete")->name("answers.complete");
 
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
@@ -49,4 +54,5 @@ Route::group(['middleware' => ['auth']], function () {
     
     Route::resource('posts', 'PostsController');
     Route::resource('questions', 'QuestionsController');
+    Route::resource('answers', 'AnswersController', ['only' => ['index', 'show', 'create', 'store']]);
 });

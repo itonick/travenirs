@@ -41,23 +41,27 @@
   
     <div class="site-section first-section">
       <div class="container">
-        <div class="row mb-5">
+        <div class="row mb-3">
           <div class="col-md-12 text-center" data-aos="fade"> 
             <h2 class="site-section-heading text-uppercase text-center font-secondary">みんなの投稿</h2>
           </div>
         </div>
-        <div class="row border-responsive">
-          <div class="col-12 mb-4 mb-lg-0 text-center" data-aos="fade-up" data-aos-delay="">
-            <div class="text-center">
-              <span class="flaticon-money-bag-with-dollar-symbol display-4 d-block mb-3 text-primary"></span>
-              <h3 class="text-uppercase h4 mb-3">Increase Revenue</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque, nobis?</p>
+        
+        <div class="border-respomsove">
+            <div class="row justify-content-center text-center" style="list-style:none; margin:1rem 0 1rem 0; padding:0;">
+                @foreach ($posts as $post)
+                    <a href="{{ action('PostsController@show', $post->id) }}" class="col-md-10"><img class=" border col-12" src="/storage/images/{{ $post->image }}"></a>
+                    <div class="profile_image col-10 mt-4">
+                        <img src="{{ asset($post->user->image) }}" class="rounded-circle float-left ml-md-5" width="100" height="100">
+                        <a href="{{ action('UsersController@show', $post->user->id) }}"><div class="text-primary h2">{{ $post->user->name }}</div></a>
+                        <div class="h4 ">【{{ $post->title }}】</div>
+                    </div>
+                @endforeach
             </div>
-          </div>
 
             <div class="row col-12 mx-auto">
-                <p class="row col-md-6 justify-content-center mx-auto">{!! link_to_route('posts.create', '投稿する', [], ['class' => 'btn btn-outline-success btn-lg col-md-6 col-8']) !!}</p>
-                <p class="row col-md-6 justify-content-center mx-auto">{!! link_to_route('posts.index', '投稿一覧', [], ['class' => 'btn btn-outline-success btn-lg col-md-6 col-8']) !!}</p>
+                <p class="row col-md-6 col-6 justify-content-center mx-auto">{!! link_to_route('posts.create', '投稿する', [], ['class' => 'btn btn-outline-success btn-lg col-md-5 col-12']) !!}</p>
+                <p class="row col-md-6 col-6 justify-content-center mx-auto">{!! link_to_route('posts.index', '投稿一覧', [], ['class' => 'btn btn-outline-success btn-lg col-md-5 col-12']) !!}</p>
             </div>
         </div>
       </div>
@@ -85,7 +89,7 @@
           <div class="col-lg-5 mr-lg-auto py-5">
             <span class="caption d-block mb-2 font-secondary font-weight-bold">Question Services</span>
             <h2 class="site-section-heading text-uppercase font-secondary mb-5">{!! link_to_route('questions.create', '質問する', [], ['class' => 'btn btn-success']) !!}</h2>
-            <p>初めての旅行でわからないこと、行ったことのない場所のこと、質問してみよう！</p>
+            <p>「初めての旅行でわからないこと」「行ったことのない場所のこと」など、なんでも質問してみよう！</p>
             <p>実際に行ったことのある人が教えてくれるのが一番！</p>
             <h2 class="row justify-content-end mr-1">{!! link_to_route('questions.index', '質問一覧', [], ['class' => 'btn btn-success']) !!}</h2>
           </div>
@@ -96,9 +100,25 @@
     <div class="py-5 bg-primary">
       <div class="container">
         <div class="row align-items-center justify-content-center">
-          <div class="col-md-6 text-center mb-3 mb-md-0">
+          <div class="row col-12 text-center mb-3 mb-md-0 align-items-center justify-content-center">
             <h4 class="text-uppercase text-white mb-4" data-aos="fade-up">Instagramでも「＃travenirs」をつけて<br>旅行の魅力を投稿しよう！</h4>
-            <a href="#" class="btn btn-bg-primary font-secondary text-uppercase" data-aos="fade-up" data-aos-delay="100">Contact Us</a>
+          </div>
+          <div class="row col-12" style="margin-left:2rem;">
+            <ul class="col-12" style="list-style:none; float:left; flex-wrap: wrap;">
+            	<?php
+            	$num   = 8;
+            	$fb_api = 'https://graph.facebook.com/v8.0/';
+            	$insta_id = '17841438494093853'; 
+            	$token = 'EAAkiWvxZABZC8BAOfxsi4rZBgYbQxZBoYsTwwoq1rJnHs1lO0xWvvkc9vQhZBCFfSWaZCZC9tmF33rbI9GDKk1urnN20JJCni0ZBJ0lb04BlxGaD4TfZBEtTzeZB3wq5GsBEzTmfYxFw1LMMkO5MZCudq4e1SwwBs9NZCFP7IhndHCOZASmTuTVguUXNRRNMvRGWxatcZD';
+            	$query = 'media.limit('. $num. '){caption,like_count,media_url,permalink,timestamp}'; //何を取得するか
+            	$insta_json  = file_get_contents("{$fb_api}{$insta_id}?fields={$query}&access_token={$token}");
+            	$insta_data  = json_decode($insta_json);
+            	?>
+            	<?php
+            		foreach((array)$insta_data->media->data as $post){ ?>
+            		<li class="ml-4" style="width:20%; float:left; flex-wrap: wrap;"><a href="<?php echo $post->permalink; ?>" target="_blank"><img src="<?php echo $post->media_url; ?>" width="100%" height="200px" class="ml-2 mr-2"></a></li>
+            	<?php } ?>
+            </ul>
           </div>
         </div>
       </div>
@@ -107,8 +127,11 @@
     <footer class="site-footer bg-dark">
         <div class="container">
         <div class="row">
-            <p class="row col-12 mt-4 justify-content-end">{!! link_to_route('posts.create', '投稿する', [], ['class' => 'btn btn-outline-success']) !!}</p>
-            <p class="row col-12 justify-content-end">{!! link_to_route('questions.create', '質問する', [], ['class' => 'btn btn-outline-success']) !!}</p>
+            <div class="col-3 mt-4" style="font-size:1.5em;"><a href="https://www.instagram.com/travenirs/?hl=ja">Instagram : <i class="fab fa-instagram"></i></a></div>
+            <div  style="margin-left:auto;">
+                <p class="row col-12 mt-4 justify-content-end">{!! link_to_route('posts.create', '投稿する', [], ['class' => 'btn btn-outline-success']) !!}</p>
+                <p class="row col-12 justify-content-end">{!! link_to_route('questions.create', '質問する', [], ['class' => 'btn btn-outline-success']) !!}</p>
+            </div>
         </div>
         <div class="row mt-2 text-center">
             <div class="col-md-12">

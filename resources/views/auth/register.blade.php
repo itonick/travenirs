@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-sm-6 offset-sm-3">
 
-            {!! Form::open(['route' => 'signup.post']) !!}
+            {!! Form::open(['route' => 'signup.post', 'enctype'=>'multipart/form-data']) !!}
                 <div class="form-group">
                     {!! Form::label('image', 'プロフィール写真') !!}
                     {!! Form::file('image', ['class' => 'form-control']) !!}

@@ -4,9 +4,9 @@
 
 @section('content')
 
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-12">
+    <div class="container mt-5 col-md-10 col-12">
+        <div class="row justify-content-center col-md-10 col-12 mb-5 offset-md-2" style="margin-top:70px;">
+            <div class="col-md-10 col-12">
                 {!! Form::model($user, ['route' => ['users.update', $user->id], 'method' => 'put']) !!}
     
                     <div class="form-group">

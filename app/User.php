@@ -27,10 +27,14 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
     
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
+    
     public function loadRelationshipCounts()
     {
         $this->loadCount('posts', 'followings', 'followers', 'favorites');
-        
     }
 
     public function followings()
@@ -50,16 +54,12 @@ class User extends Authenticatable
     
     public function follow($userId)
     {
-        // すでにフォローしているかの確認
         $exist = $this->is_following($userId);
-        // 相手が自分自身かどうかの確認
         $its_me = $this->id == $userId;
 
         if ($exist || $its_me) {
-            // すでにフォローしていれば何もしない
             return false;
         } else {
-            // 未フォローであればフォローする
             $this->followings()->attach($userId);
             return true;
         }
@@ -67,13 +67,10 @@ class User extends Authenticatable
 
     public function unfollow($userId)
     {
-        // すでにフォローしているかの確認
         $exist = $this->is_following($userId);
-        // 相手が自分自身かどうかの確認
         $its_me = $this->id == $userId;
 
         if ($exist && !$its_me) {
-            // すでにフォローしていればフォローを外す
             $this->followings()->detach($userId);
             return true;
         } else {
@@ -84,19 +81,18 @@ class User extends Authenticatable
 
     public function is_following($userId)
     {
-        // フォロー中ユーザの中に $userIdのものが存在するか
         return $this->followings()->where('follow_id', $userId)->exists();
     }
     
     //このユーザとフォロー中ユーザの投稿に絞り込む。
-    public function feed_microposts()
+    public function feed_posts()
     {
         // このユーザがフォロー中のユーザのidを取得して配列にする
         $userIds = $this->followings()->pluck('users.id')->toArray();
         // このユーザのidもその配列に追加
         $userIds[] = $this->id;
         // それらのユーザが所有する投稿に絞り込む
-        return Micropost::whereIn('user_id', $userIds);
+        return Post::whereIn('user_id', $userIds);
     }
     
     public function favorite($postId)
