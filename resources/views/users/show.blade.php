@@ -6,11 +6,11 @@
 
     <div class="container col-md-10 mb-3" style="margin-top:70px;">
         <div class="row post_person col-12">
-            <div class="profile_image ml-5">
+            <div class="profile_image col-md-3 col-2 text-center">
                 <img src="{{ $user->image }}" class="rounded-circle" width="80" height="80">
             </div>
             <ul class="post-user-info" style="list-style-type:none;">
-                <li><a href="{{ action('UsersController@show', $user->id) }}"><p class="text-primary col-2 h2">{{ $user->name }}</p></a>
+                <li><a href="{{ action('UsersController@show', $user->id) }}"><p class="text-primary col-12 h2">{{ $user->name }}</p></a>
                 
                     <div class="post_button">
                     @if (Auth::id() != $user->id)

@@ -3,7 +3,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container col-md-10 mb-5" style="margin-top:70px;"">
+    <div class="container col-md-10 mb-5" style="margin-top:70px;">
         <h2>お気に入りリスト</h2>
     </div>
     
@@ -12,12 +12,7 @@
             @if (count($posts) > 0)
                 @foreach ($posts as $post)
                     <div class="col-md-3 col-5 ml-md-3 mr-3 mb-3" style="display:inline-block">
-                        <div class="row">
-                            <div class="profile_image">
-                                <img src="{{ $post->user->image }}" class="rounded-circle" width="80" height="80">
-                            </div>
-                            <a href="{{ action('UsersController@show', $post->user->id) }}"><p class="text-primary col-2 h2">{{ $post->user->name }}</p></a>
-                        </div>
+                        
                         <a href="{{ action('PostsController@show', $post->id) }}"><img class="mb-3" src="/storage/images/{{ $post->image }}"  width="150" height="150"></a>
                         <div class="row mt-3 mb-2 col-12">
                         <p class="h5">【{{ $post->title }}】</p>

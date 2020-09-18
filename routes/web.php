@@ -18,8 +18,14 @@ Route::get('users.index', 'UsersController@index');
 Route::resource('users', 'UsersController');
 Route::get('users/show/{id}', 'UsersController@show')->name('users.show');
 
+Route::get('users/{id}/edit', 'UsersController@edit')->name('users.edit');
+Route::put('users/{id}', 'UsersController@update')->name('users.update');
+
 Route::get('posts.index', 'PostsController@index');
 Route::get('posts/search', 'PostsController@search')->name('posts.search');
+
+Route::get('posts/{id}/edit', 'PostsController@edit')->name('posts.edit');
+Route::put('posts/{id}', 'PostsController@update')->name('posts.update');
 
 Route::get('questions.index', 'QuestionsController@index');
 Route::get('show', 'QuestionsController@show')->name('questions.show');

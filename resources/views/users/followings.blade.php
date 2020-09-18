@@ -7,15 +7,15 @@
         <h2>フォローリスト</h2>
     </div>
     
-    <div class="container justify-content-center mt-5 mb-7 col-md-10 offset-md-2">
+    <div class="container justify-content-center mt-5 mb-7 col-12 col-md-10 offset-md-2">
         @if (count($users) > 0)
             @foreach ($users as $user)
-                <div class="row media-body col-md-10 border-bottom">
+                <div class="row media-body col-12 col-md-12 border-bottom">
                     <div class="profile_image">
                         <img src="{{ $user->image }}" class="rounded-circle" width="80" height="80">
                     </div>
-                    <a href="{{ action('UsersController@show', $user->id) }}"><p class="text-primary col-2 h2 mt-3">{{ $user->name }}</p></a>
-                    <div class="post_button mb-5 mt-3" style="margin-left:auto;">
+                    <a href="{{ action('UsersController@show', $user->id) }}" class="col-8 col-md-7"><p class="text-primary col-12 h2 mt-3">{{ $user->name }}</p></a>
+                    <div class="post_button mb-5 mt-3 col-12 col-md-3" style="margin-left:auto;">
                         @if (Auth::id() != $user->id)
                             @if (Auth::user()->is_following($user->id))
                                 {!! Form::open(['route' => ['user.unfollow', $user->id], 'method' => 'delete']) !!}

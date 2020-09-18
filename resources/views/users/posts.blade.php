@@ -12,13 +12,16 @@
             @if (count($posts) > 0)
                 @foreach ($posts as $post)
                     <div class="col-md-3 col-5 ml-md-3 mr-3 mb-3" style="display:inline-block">
-                        <a href="{{ action('PostsController@show', $post->id) }}"><img class="mb-3" src="/storage/images/{{ $post->image }}"  width="150" height="150"></a>
+                        <a href="{{ action('PostsController@show', $post->id) }}"><img class="mb-3" src="{{ asset('public/images/' . $post->image) }}"  width="150" height="150"></a>
                         <p class="mb-0">【{!! nl2br(e($post->title)) !!}】</p>
-                        @if(Auth::id() == $post->user_id)
-                            {!! Form::open(['route' => ['posts.destroy', $post->id], 'method' => 'delete']) !!}
-                                {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
-                            {!! Form::close() !!}
-                        @endif
+                        <div class="row justify-content-center">
+                            {!! link_to_route('posts.edit', '編集', ['post' => $post->id], ['class' => 'btn btn-primary btn-sm']) !!}
+                            @if(Auth::id() == $post->user_id)
+                                {!! Form::open(['route' => ['posts.destroy', $post->id], 'method' => 'delete']) !!}
+                                    {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm ml-2']) !!}
+                                {!! Form::close() !!}
+                            @endif
+                        </div>
                     </div>
                 @endforeach
             @endif

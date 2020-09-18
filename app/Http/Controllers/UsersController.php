@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\User;
+use Auth;
+use Image;
 
 class UsersController extends Controller
 {
@@ -43,7 +45,7 @@ class UsersController extends Controller
         ]);
     }
     
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $request->validate([
            'name' => 'required|max:14',
@@ -51,17 +53,22 @@ class UsersController extends Controller
            'password' => 'required|min:8|confirmed',
         ]);
         
-        $user = User::findOrFail($id);
-        $user->image = $request->image;
+        $user = Auth::user();
+        if($request->hasFile('image'))
+        {
+            $image = $request->image;
+            $image_new_name = time() . $image->getClientOriginalName();
+            $image->move('uploads/images', $image_new_name);
+            $user->image = 'uploads/images/'. $image_new_name;
+            $user->save();
+        }
+        
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = $request->password;
         $user->save();
 
-        // トップページへリダイレクトさせる
-        return view('users.index', [
-            'user' => $user,
-        ]);
+        return redirect('users.index');
     }
     
     //ユーザのフォロー一覧ページを表示するアクション。
@@ -106,7 +113,7 @@ class UsersController extends Controller
         ]);
     }
     
-    public function posts($id)
+    public function posts(Request $request, $id)
     {
         $user = user::findOrFail($id);
         $user->loadRelationshipCounts();

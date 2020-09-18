@@ -35,11 +35,11 @@
             @foreach ($posts as $post)
                 <div class="post_list container col-md-10 mb-5 border-bottom" style="margin-top:70px;">
                     <div class="row post_person col-12">
-                        <div class="profile_image">
-                            <img src="{{ $post->user->image }}" class="rounded-circle" width="80" height="80">
+                        <div class="profile_image col-4 text-center">
+                            <img src="{{ $post->user->image }}" class="rounded-circle" width="100" height="100">
                         </div>
                         <ul class="post-user-info" style="list-style-type:none;">
-                            <li><a href="{{ action('UsersController@show', $post->user->id) }}"><p class="text-primary col-2 h2">{{ $post->user->name }}</p></a>
+                            <li><a href="{{ action('UsersController@show', $post->user->id) }}"><p class="text-primary col-12 h2">{{ $post->user->name }}</p></a>
                             
                                 <div class="post_button">
                                     @if (Auth::id() != $post->user->id)
@@ -59,7 +59,7 @@
                         <small class="col-12 text-md-right mb-2">Written on：{{ $post->created_at->format('Y/m/d') }}</small>
                     </div>
                     <div class="col-12 col-md-12">
-                        <img src="/storage/images/{{ $post->image }}" style="width:100%;height:auto;">
+                        <img src="{{ asset('public/images/' . $post->image) }}" style="width:100%;height:auto;">
                     </div>
                     <div class="row mt-3 mb-2 col-12">
                         <p class="h5">【{{ $post->title }}】</p>

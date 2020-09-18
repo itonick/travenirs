@@ -50,7 +50,7 @@
         <div class="border-respomsove">
             <div class="row justify-content-center text-center" style="list-style:none; margin:1rem 0 1rem 0; padding:0;">
                 @foreach ($posts as $post)
-                    <a href="{{ action('PostsController@show', $post->id) }}" class="col-md-10"><img class=" border col-12" src="/storage/images/{{ $post->image }}"></a>
+                    <a href="{{ action('PostsController@show', $post->id) }}" class="col-md-10"><img class=" border col-12" src="{{ asset('public/images/' . $post->image) }}"></a>
                     <div class="profile_image col-10 mt-4">
                         <img src="{{ asset($post->user->image) }}" class="rounded-circle float-left ml-md-5" width="100" height="100">
                         <a href="{{ action('UsersController@show', $post->user->id) }}"><div class="text-primary h2">{{ $post->user->name }}</div></a>
@@ -103,7 +103,7 @@
           <div class="row col-12 text-center mb-3 mb-md-0 align-items-center justify-content-center">
             <h4 class="text-uppercase text-white mb-4" data-aos="fade-up">Instagramでも「＃travenirs」をつけて<br>旅行の魅力を投稿しよう！</h4>
           </div>
-          <div class="row col-12" style="margin-left:2rem;">
+          <div class="">
             <ul class="col-12" style="list-style:none; float:left; flex-wrap: wrap;">
             	<?php
             	$num   = 8;
@@ -116,7 +116,7 @@
             	?>
             	<?php
             		foreach((array)$insta_data->media->data as $post){ ?>
-            		<li class="ml-4" style="width:20%; float:left; flex-wrap: wrap;"><a href="<?php echo $post->permalink; ?>" target="_blank"><img src="<?php echo $post->media_url; ?>" width="100%" height="200px" class="ml-2 mr-2"></a></li>
+            		<li class="col-6 col-md-3" style=" float:left; flex-wrap: wrap;"><a href="<?php echo $post->permalink; ?>" target="_blank"><img src="<?php echo $post->media_url; ?>" width="100%" height="200px" class=""></a></li>
             	<?php } ?>
             </ul>
           </div>

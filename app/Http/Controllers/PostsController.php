@@ -13,7 +13,7 @@ class PostsController extends Controller
     {
         $posts = new Post;
         $data['posts'] = Post::orderBy('created_at', 'desc')
-        ->simplePaginate(1);
+        ->simplePaginate(5);
         
         return view('posts.index', $data);
     }
@@ -50,30 +50,55 @@ class PostsController extends Controller
         
         // return redirect('posts.index');
         
-        $this->validate($request, [
-           'image' => 'image|max:1999',
-           'title' => 'required',
-           'content' => 'required|max:255',
-        ]);
         
-        if($request->hasFile('image')) {
-            $filenameWithExt = $request->file('image')->getClientOriginalName();
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $extension = $request->file('image')->getClientOriginalExtension();
-            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
-            $path = $request->file('image')->storeAs('public/images', $fileNameToStore);
-        } else {
-            $fileNameToStore = 'noimage.jpg';
-        }
         
-        $post = new Post;
+        // $this->validate($request, [
+        //   'image' => 'image|max:1999',
+        //   'title' => 'required',
+        //   'content' => 'required|max:255',
+        // ]);
+        
+        // if($request->hasFile('image')) {
+        //     $filenameWithExt = $request->file('image')->getClientOriginalName();
+        //     $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        //     $extension = $request->file('image')->getClientOriginalExtension();
+        //     $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+        //     $path = $request->file('image')->storeAs('public/images', $fileNameToStore);
+        // } else {
+        //     $fileNameToStore = 'noimage.jpg';
+        // }
+        
+        // $post = new Post;
+        // $post->user_id = auth()->user()->id;
+        // $post->image = $fileNameToStore;
+        // $post->title = $request->input('title');
+        // $post->content = $request->input('content');
+        // $post->tag = $request->input('tag');
+        // $post->save();
+
+        // return redirect('posts.index');
+        
+        
+        $post = new Post();
         $post->user_id = auth()->user()->id;
-        $post->image = $fileNameToStore;
         $post->title = $request->input('title');
         $post->content = $request->input('content');
         $post->tag = $request->input('tag');
+        
+        if($request->hasFile('image'))
+        {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('public/images/', $filename);
+            $post->image = $filename;
+        } else {
+            return $request;
+            $post->image = '';
+        }
         $post->save();
-
+        // dd($post);
+        
         return redirect('posts.index');
     }
 
@@ -88,29 +113,84 @@ class PostsController extends Controller
 
     public function edit($id)
     {
-        $post = Post::findOrFail($id);
+        $post = Post::find($id);
 
         return view('posts.edit', [
             'post' => $post,
         ]);
+
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'content' => 'required|max:255',
+           'title' => 'required',
+           'content' => 'required|max:255',
+           'tag' => 'required',
         ]);
         
-        // idの値でメッセージを検索して取得
-        $post = Post::findOrFail($id);
-        // メッセージを更新
-        $post->image = $request->image;
+        $post = Post::find($id);
+        
         $post->title = $request->title;
         $post->content = $request->content;
         $post->tag = $request->tag;
+        
+        if($request->hasFile('image'))
+        {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('public/images/', $filename);
+            $post->image = $filename;
+        }
         $post->save();
+        return redirect('posts.index');
+            
+        //     $image = $request->file('image');
+        //     $image_new_name = time() . $image->getClientOriginalName();
+        //     $image->move('storage/uploads', $image_new_name);
+        //     $post->image = 'storage/uploads/'. $image_new_name;
+        //     $post->user_id = auth()->user()->id;
+        
+        //     $post->save();
+        // }
+        // return redirect('posts.index');
+        
+        
+        
+        // $this->validate($request, [
+        //   'image' => 'required',
+        //   'title' => 'required',
+        //   'content' => 'required|max:255',
+        // ]);
+        
+        // if($request->hasFile('image')) {
+        //     $filenameWithExt = $request->file('image')->getClientOriginalName();
+        //     $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        //     $extension = $request->file('image')->getClientOriginalExtension();
+        //     $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+        //     $path = $request->file('image')->storeAs('public/images', $fileNameToStore);
+        // } else {
+        //     $fileNameToStore = 'noimage.jpg';
+        // }
+        
+        // // idの値でメッセージを検索して取得
+        // $post = Post::findOrFail($id);
+        // // メッセージを更新
+        // $post->image = $fileNameToStore;
+        // $post->title = $request->title;
+        // $post->content = $request->content;
+        // $post->tag = $request->tag;
+        // $post->save();
+        
+        // // $post = new Post;
+        // // $post->image = $fileNameToStore;
+        // // $post->title = $request->input('title');
+        // // $post->content = $request->input('content');
+        // // $post->tag = $request->input('tag');
+        // // $post->save();
 
-        return redirect('/');
+        // return redirect('/');
     }
 
     public function destroy($id)

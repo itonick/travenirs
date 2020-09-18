@@ -8,6 +8,7 @@
             <div class="profile_image col-4 text-center">
                 <img src="{{ asset(Auth::user()->image) }}" class="rounded-circle" width="100" height="100">
             </div>
+            
             <div class="profile_name_edit col-8 col-md-8">
                 <p class="text-primary col-12 h2">{{ Auth::user()->name }}</p>
                 <p>{!! link_to_route('users.edit', 'プロフィール編集', [$user->id], ['class' => 'btn btn-info']) !!}</p>
