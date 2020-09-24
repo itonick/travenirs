@@ -86,7 +86,10 @@ class QuestionsController extends Controller
     
     public function destroy($id)
     {
-        //
+        $question = Question::findOrFail($id);
+        $question->delete();
+
+        return back();
     }
     
     public function search(Request $request)
@@ -108,7 +111,6 @@ class QuestionsController extends Controller
         $question = Question::findOrFail($id);
 
         $question->loadRelationshipCounts();
-        dd($question);
 
         return view('questions.index', [
             'question' => $question,

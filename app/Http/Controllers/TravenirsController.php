@@ -13,8 +13,7 @@ class TravenirsController extends Controller
 
     public function index()
     {
-        $posts = Post::all()->random(1)->all();
-        $user = User::all();
+        $posts = Post::inRandomOrder()->take(1)->get();
 
         return view('travenirs.index', [
             'posts' => $posts,

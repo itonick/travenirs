@@ -35,8 +35,8 @@
             @if (count($posts) > 0)
                 @foreach ($posts as $post)
                     <div class="col-md-3 col-5 ml-md-3 mr-3 mb-3" style="display:inline-block">
-                        <a href="{{ action('PostsController@show', $post->id) }}"><img class="mb-3" src="/storage/images/{{ $post->image }}"  width="150" height="150"></a>
-                        <p class="mb-0">【{!! nl2br(e($post->title)) !!}】</p>
+                        <a href="{{ action('PostsController@show', $post->id) }}"><img class="mb-3" src="{{ asset('public/images/' . $post->image) }}"  width="150" height="150"></a>
+                        <p class="mb-0">【{!! nl2br(e(Str::limit($post->title, 10))) !!}】</p>
                     </div>
                 @endforeach
             @endif

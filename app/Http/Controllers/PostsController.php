@@ -97,8 +97,7 @@ class PostsController extends Controller
             $post->image = '';
         }
         $post->save();
-        // dd($post);
-        
+
         return redirect('posts.index');
     }
 

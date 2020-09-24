@@ -35,10 +35,10 @@
                             <img src="{{ $question->user->image }}" class="rounded-circle" width="80" height="80">
                         </div>
                         <div class="text-primary h2 offset-1">{{ $question->user->name }}</div>
-                        <small class="pull-right  col-5 offset-md-2 text-right" style="float:right;">Written on：{{ $question->created_at->format('Y/m/d') }}</small>
+                        <small class="pull-right col-5 offset-md-2 text-right" style="float:right;">Written on：{{ $question->created_at->format('Y/m/d') }}</small>
                     </div>
                     <div class="question-content col-md-10 mb-4" style="font-size:1.2em;">{{ $question->content }}</div>
-                    回答数：{{ $question->answers_count }}
+                    回答数：{{ $question->answers->count() }}
                 </a>
             </div>
             @if($loop->last)

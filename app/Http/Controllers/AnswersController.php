@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Answer;
 use App\Question;
+use App\User;
 use Auth;
 
 class AnswersController extends Controller
@@ -16,17 +17,14 @@ class AnswersController extends Controller
         ]);
         
         // $question = Question::where('id', $request->input('question_id'))->get();
-        // dd($question);
-        
+
         $input = \Request::all();
         Answer::create($input);
-        // dd($input);
-        
+
         $answer = [
             'question_id' => $request->question_id,
             'answer' => $request->answer,
         ];
-        // dd($answer);
 
         $question = [
             'answer'=>$request->answer,

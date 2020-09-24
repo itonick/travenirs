@@ -49,17 +49,19 @@
         
         <div class="border-respomsove">
             <div class="row justify-content-center text-center" style="list-style:none; margin:1rem 0 1rem 0; padding:0;">
-                @foreach ($posts as $post)
-                    <a href="{{ action('PostsController@show', $post->id) }}" class="col-md-10"><img class=" border col-12" src="{{ asset('public/images/' . $post->image) }}"></a>
-                    <div class="profile_image col-10 mt-4">
-                        <img src="{{ asset($post->user->image) }}" class="rounded-circle float-left ml-md-5" width="100" height="100">
-                        <a href="{{ action('UsersController@show', $post->user->id) }}"><div class="text-primary h2">{{ $post->user->name }}</div></a>
-                        <div class="h4 ">【{{ $post->title }}】</div>
-                    </div>
-                @endforeach
+                @if (count($posts) > 0)
+                    @foreach ($posts as $post)
+                        <a href="{{ action('PostsController@show', $post->id) }}" class="col-md-10"><img class="border col-12 col-md-8" src="{{ asset('public/images/' . $post->image) }}"></a>
+                        <div class="profile_image col-12 col-md-8 mt-4">
+                            <img src="{{ asset($post->user->image) }}" class="rounded-circle float-left ml-md-5 border" width="100" height="100">
+                            <a href="{{ action('UsersController@show', $post->user->id) }}"><div class="text-primary h2 col-md-10 offset-md-4 text-left">{{ $post->user->name }}</div></a>
+                            <div class="h4 col-md-10 offset-md-4 text-left">【{{ $post->title }}】</div>
+                        </div>
+                    @endforeach
+                @endif
             </div>
 
-            <div class="row col-12 mx-auto">
+            <div class="row col-12 col-md-10 mx-auto">
                 <p class="row col-md-6 col-6 justify-content-center mx-auto">{!! link_to_route('posts.create', '投稿する', [], ['class' => 'btn btn-outline-success btn-lg col-md-5 col-12']) !!}</p>
                 <p class="row col-md-6 col-6 justify-content-center mx-auto">{!! link_to_route('posts.index', '投稿一覧', [], ['class' => 'btn btn-outline-success btn-lg col-md-5 col-12']) !!}</p>
             </div>
@@ -116,7 +118,7 @@
             	?>
             	<?php
             		foreach((array)$insta_data->media->data as $post){ ?>
-            		<li class="col-6 col-md-3" style=" float:left; flex-wrap: wrap;"><a href="<?php echo $post->permalink; ?>" target="_blank"><img src="<?php echo $post->media_url; ?>" width="100%" height="200px" class=""></a></li>
+            		<li class="col-6 col-md-3 mb-3" style=" float:left; flex-wrap: wrap;"><a href="<?php echo $post->permalink; ?>" target="_blank"><img src="<?php echo $post->media_url; ?>" width="100%" height="150px" class=""></a></li>
             	<?php } ?>
             </ul>
           </div>
@@ -127,7 +129,7 @@
     <footer class="site-footer bg-dark">
         <div class="container">
         <div class="row">
-            <div class="col-3 mt-4" style="font-size:1.5em;"><a href="https://www.instagram.com/travenirs/?hl=ja">Instagram : <i class="fab fa-instagram"></i></a></div>
+            <div class="col-3 mt-4" style="font-size:1.5em;"><a href="https://www.instagram.com/travenirs/?hl=ja" target="_blank" rel="noopener">Instagram : <i class="fab fa-instagram"></i></a></div>
             <div  style="margin-left:auto;">
                 <p class="row col-12 mt-4 justify-content-end">{!! link_to_route('posts.create', '投稿する', [], ['class' => 'btn btn-outline-success']) !!}</p>
                 <p class="row col-12 justify-content-end">{!! link_to_route('questions.create', '質問する', [], ['class' => 'btn btn-outline-success']) !!}</p>

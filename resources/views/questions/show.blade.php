@@ -9,7 +9,7 @@
                 <img src="{{ $question->user->image }}" class="rounded-circle" width="80" height="80">
             </div>
             <div class="text-primary h2 offset-1">{{ $question->user->name }}</div>
-            <small class="pull-right col-5 offset-md-2 text-right" style="float:right;">Written on：{{ $question->created_at->format('Y/m/d') }}</small>
+            <small class="pull-right col-md-5 col-12 offset-md-2 text-right" style="float:right;">Written on：{{ $question->created_at->format('Y/m/d') }}</small>
         </div>
         <div class="question-detail col-md-10" style="font-size:1.2em;">{{ $question->content }}</div>
     </div>

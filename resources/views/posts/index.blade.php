@@ -34,13 +34,12 @@
         >
             @foreach ($posts as $post)
                 <div class="post_list container col-md-10 mb-5 border-bottom" style="margin-top:70px;">
-                    <div class="row post_person col-12">
-                        <div class="profile_image col-4 text-center">
-                            <img src="{{ $post->user->image }}" class="rounded-circle" width="100" height="100">
+                    <div class="row post_person col-md-10 col-12">
+                        <div class="profile_image col-5 text-center">
+                            <img src="{{ $post->user->image }}" class="rounded-circle border float-right" width="100" height="100">
                         </div>
                         <ul class="post-user-info" style="list-style-type:none;">
-                            <li><a href="{{ action('UsersController@show', $post->user->id) }}"><p class="text-primary col-12 h2">{{ $post->user->name }}</p></a>
-                            
+                            <li><a href="{{ action('UsersController@show', $post->user->id) }}"><p class="text-primary col-12 h1">{{ $post->user->name }}</p></a>
                                 <div class="post_button">
                                     @if (Auth::id() != $post->user->id)
                                         @if (Auth::user()->is_following($post->user->id))
@@ -58,12 +57,12 @@
                         </ul>
                         <small class="col-12 text-md-right mb-2">Written on：{{ $post->created_at->format('Y/m/d') }}</small>
                     </div>
-                    <div class="col-12 col-md-12">
-                        <img src="{{ asset('public/images/' . $post->image) }}" style="width:100%;height:auto;">
+                    <div class="col-12 col-md-12 text-center">
+                        <img class="border col-12 col-md-8" src="{{ asset('public/images/' . $post->image) }}">
                     </div>
-                    <div class="row mt-3 mb-2 col-12">
+                    <div class="row mt-3 mb-2 col-md-8 offset-md-2">
                         <p class="h5">【{{ $post->title }}】</p>
-                        <div class="post_button offset-3" style="margin-left:auto;">
+                        <div class="post_button offset-3 " style="margin-left:auto;">
                             @if (Auth::user()->is_favorite($post->id))
                                 {!! Form::open(['route' => ['favorites.unfavorite', $post->id], 'method' => 'delete']) !!}
                                     {!! Form::submit('★', ['class' => "btn btn-success btn-sm"]) !!}
@@ -75,15 +74,12 @@
                             @endif
                         </div>
                     </div>
-                    <div class="grad-wrap post_content row col-12 col-md-11 justify-content-center mb-3">
+                    <div class="grad-wrap post_content row col-12 col-md-12 justify-content-center mb-3">
                         <input id="trigger{{ $post->id }}" class="grad-trigger" type="checkbox">
-                        <div class="grad-item col-12 col-md-10 text-center mb-2">{{ $post->content }}</div>
+                        <div class="grad-item col-12 col-md-10 text-center mb-2 ml-5">{{ $post->content }}</div>
                         <label class="grad-btn btn btn-lg btn-outline-info " for="trigger{{ $post->id }}"></label>
                     </div>
                 </div>
-                <!--@if($loop->last)-->
-                <!--    <p class="text-center mt-4">ーー投稿は以上ですーー</p>-->
-                <!--@endif-->
             @endforeach
             </section>
         @endif
