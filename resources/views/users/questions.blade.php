@@ -1,5 +1,3 @@
-<!--マイ質問-->
-
 @extends('layouts.app')
 
 @section('content')

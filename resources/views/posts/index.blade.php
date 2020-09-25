@@ -27,10 +27,10 @@
     <div class="post_index">
         @if (count($posts) > 0)
         <section class="scroll_area"
-          data-infinite-scroll='{
-            "path": ".pagination a[rel=next]",
-            "append": ".post_list"
-          }'
+            data-infinite-scroll='{
+                "path": ".pagination a[rel=next]",
+                "append": ".post_list"
+            }'
         >
             @foreach ($posts as $post)
                 <div class="post_list container col-md-10 mb-5 border-bottom" style="margin-top:70px;">

@@ -16,8 +16,6 @@ class AnswersController extends Controller
             'answer' => 'required|max:255',
         ]);
         
-        // $question = Question::where('id', $request->input('question_id'))->get();
-
         $input = \Request::all();
         Answer::create($input);
 

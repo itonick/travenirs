@@ -1,5 +1,3 @@
-<!--フォロワー-->
-
 @extends('layouts.app')
 
 @section('content')

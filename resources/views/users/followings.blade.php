@@ -1,9 +1,7 @@
-<!--フォロー-->
-
 @extends('layouts.app')
 
 @section('content')
-    <div class="container col-md-10 mb-5" style="margin-top:70px;"">
+    <div class="container col-md-10 mb-5" style="margin-top:70px;">
         <h2>フォローリスト</h2>
     </div>
     

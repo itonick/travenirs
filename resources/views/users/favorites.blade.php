@@ -1,5 +1,3 @@
-<!--お気に入り一覧-->
-
 @extends('layouts.app')
 
 @section('content')

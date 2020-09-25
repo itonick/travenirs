@@ -48,9 +48,7 @@ class QuestionsController extends Controller
     public function show($id)
     {
         $question = Question::findOrFail($id);
-        // dd($question);
         $answers = $question->answers()->orderBy('created_at', 'desc')->paginate(10);
-        // dd($answers);
 
         return view('questions.show', [
             'question' => $question,
@@ -58,32 +56,6 @@ class QuestionsController extends Controller
         ]);
     }
 
-//     public function answer(Request $request){
-
-// 		$question = new Question;
-// 		$question->answer = $request->input('answer');
-		
-		
-
-// 		return redirect()->action("QuestionsController@confirm");
-// 	}
-    
-//     public function confirm(Request $request){
-// 		//セッションから値を取り出す
-// 		$input = $request->session()->get("form_input");
-		
-// 		if($request->has("back")){
-// 			return redirect()->action("QuestionsController@show")
-// 				->withInput($input);
-// 		}
-		
-// 		//セッションに値が無い時はフォームに戻る
-// 		if(!$input){
-// 			return redirect()->action("QuestionsController@show");
-// 		}
-// 		return view("answers.confirm",["question" => $question]);
-// 	}
-    
     public function destroy($id)
     {
         $question = Question::findOrFail($id);

@@ -29,56 +29,6 @@ class PostsController extends Controller
 
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'title' => 'required|max:20',
-        //     'content' => 'required|max:255',
-        //     // 'image' => 'required|file|image,
-        // ]);
-        
-        // $post = new Post();
-        // $image = $request->file('image');
-        // $path = Storage::disk('s3')->put('travenirs', $image, 'public');
-        // $post->image = Storage::url($path);
-
-        // $request->user()->posts()->create([
-        //     'user_id' => $request->user_id,
-        //     'image' => $request->image,
-        //     'title' => $request->title,
-        //     'content' => $request->content,
-        //     'tag' => $request->tag,
-        // ]);
-        
-        // return redirect('posts.index');
-        
-        
-        
-        // $this->validate($request, [
-        //   'image' => 'image|max:1999',
-        //   'title' => 'required',
-        //   'content' => 'required|max:255',
-        // ]);
-        
-        // if($request->hasFile('image')) {
-        //     $filenameWithExt = $request->file('image')->getClientOriginalName();
-        //     $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-        //     $extension = $request->file('image')->getClientOriginalExtension();
-        //     $fileNameToStore = $filename . '_' . time() . '.' . $extension;
-        //     $path = $request->file('image')->storeAs('public/images', $fileNameToStore);
-        // } else {
-        //     $fileNameToStore = 'noimage.jpg';
-        // }
-        
-        // $post = new Post;
-        // $post->user_id = auth()->user()->id;
-        // $post->image = $fileNameToStore;
-        // $post->title = $request->input('title');
-        // $post->content = $request->input('content');
-        // $post->tag = $request->input('tag');
-        // $post->save();
-
-        // return redirect('posts.index');
-        
-        
         $post = new Post();
         $post->user_id = auth()->user()->id;
         $post->title = $request->input('title');
@@ -144,52 +94,6 @@ class PostsController extends Controller
         }
         $post->save();
         return redirect('posts.index');
-            
-        //     $image = $request->file('image');
-        //     $image_new_name = time() . $image->getClientOriginalName();
-        //     $image->move('storage/uploads', $image_new_name);
-        //     $post->image = 'storage/uploads/'. $image_new_name;
-        //     $post->user_id = auth()->user()->id;
-        
-        //     $post->save();
-        // }
-        // return redirect('posts.index');
-        
-        
-        
-        // $this->validate($request, [
-        //   'image' => 'required',
-        //   'title' => 'required',
-        //   'content' => 'required|max:255',
-        // ]);
-        
-        // if($request->hasFile('image')) {
-        //     $filenameWithExt = $request->file('image')->getClientOriginalName();
-        //     $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-        //     $extension = $request->file('image')->getClientOriginalExtension();
-        //     $fileNameToStore = $filename . '_' . time() . '.' . $extension;
-        //     $path = $request->file('image')->storeAs('public/images', $fileNameToStore);
-        // } else {
-        //     $fileNameToStore = 'noimage.jpg';
-        // }
-        
-        // // idの値でメッセージを検索して取得
-        // $post = Post::findOrFail($id);
-        // // メッセージを更新
-        // $post->image = $fileNameToStore;
-        // $post->title = $request->title;
-        // $post->content = $request->content;
-        // $post->tag = $request->tag;
-        // $post->save();
-        
-        // // $post = new Post;
-        // // $post->image = $fileNameToStore;
-        // // $post->title = $request->input('title');
-        // // $post->content = $request->input('content');
-        // // $post->tag = $request->input('tag');
-        // // $post->save();
-
-        // return redirect('/');
     }
 
     public function destroy($id)

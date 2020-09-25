@@ -71,13 +71,10 @@ class UsersController extends Controller
         return redirect('users.index');
     }
     
-    //ユーザのフォロー一覧ページを表示するアクション。
     public function followings($id)
     {
         $user = User::findOrFail($id);
-
         $user->loadRelationshipCounts();
-
         $followings = $user->followings()->paginate(10);
 
         return view('users.followings', [
@@ -86,13 +83,10 @@ class UsersController extends Controller
         ]);
     }
     
-    //ユーザのフォロワー一覧ページを表示するアクション。
     public function followers($id)
     {
         $user = User::findOrFail($id);
-
         $user->loadRelationshipCounts();
-
         $followers = $user->followers()->paginate(10);
 
         return view('users.followers', [

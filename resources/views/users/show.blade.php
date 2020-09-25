@@ -1,5 +1,3 @@
-<!--特定ユーザー投稿一覧-->
-
 @extends('layouts.app')
 
 @section('content')
